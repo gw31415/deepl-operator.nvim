@@ -22,23 +22,21 @@ fu deepl_operator#replace_opfunc(type = '') abort
 
 	" Add highlights
 	let pos = []
-	let [_, line1, col1, _] = getpos("'[")
-	let [_, line2, col2, _] = getpos("']")
-	if a:type == "char"
-		for line in range(line1, min([line2, line('w$')]))
-			if line != line1 && line != line2
-				call add(pos, matchaddpos(s:hlgroup, [ line ]))
-			else
-				let str = getline(line)
-				let start_idx = line == line1 ? col1 : 1
-				let end_idx = line == line2 ? col2 : len(str)
-				for i in range(start_idx, end_idx)
-					call add(pos, matchaddpos(s:hlgroup, [[line, byteidx(str, i)]]))
-				endfor
-			endif
-		endfor
-		redraw
-	endif
+	let [ line1, col1 ] = [ line("'["), col("'[")  ]
+	let [ line2, col2 ] = [ line("']"), col("']")  ]
+	for line in range(line1, min([line2, line('w$')]))
+		if line != line1 && line != line2
+			call add(pos, matchaddpos(s:hlgroup, [ line ]))
+		else
+			let str = getline(line)
+			let start_idx = line == line1 ? col1 : 1
+			let end_idx = line == line2 ? col2 : len(str)
+			for i in range(start_idx, end_idx)
+				call add(pos, matchaddpos(s:hlgroup, [[line, byteidx(str, i)]]))
+			endfor
+		endif
+	endfor
+	redraw
 	" Translate
 	let output = ''
 	try
