@@ -44,6 +44,7 @@ fu deepl_operator#replace_opfunc(type = '') abort
 	try
 		echo "Translating..."
 		let output = deepl#translate(input, g:deepl_target_lang)
+		echo ""
 	catch
 		echoerr v:exception
 	finally
@@ -56,9 +57,9 @@ fu deepl_operator#replace_opfunc(type = '') abort
 
 	let lines = split(output, '\n')
 	try
-		call nvim_buf_set_text(0, line1 - 1, col1 - 1, line2 - 1, col("'>$"), lines)
+		call nvim_buf_set_text(0, line1 - 1, col1 - 1, line2 - 1, col("']"), lines)
 	catch
 		" If the selected text is up to a newline character
-		call nvim_buf_set_text(0, line1 - 1, col1 - 1, line2 - 1, col("'>$") - 1, lines)
+		call nvim_buf_set_text(0, line1 - 1, col1 - 1, line2 - 1, col("']") - 1, lines)
 	endtry
 endfu
