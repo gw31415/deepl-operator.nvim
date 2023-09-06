@@ -1,6 +1,10 @@
-# deepl-operator.nvim
+# deepl-operator.vim
 
 Mapping that enables to translate with `<Plug>(deepl-replace)`!
+
+## Dependencies
+
+- [gw31415/deepl.vim](https://github.com/gw31415/deepl.vim)
 
 ## Example
 
@@ -12,12 +16,12 @@ repo = "gw31415/deepl.vim"
 hook_source = "let g:deepl_authkey='XXXXXXXXX'"
 
 [[plugins]]
-repo = "gw31415/deepl-operator.nvim"
+repo = "gw31415/deepl-operator.vim"
 depends = ["deepl.vim"]
-on_map = { nx = "dt" }
+on_map = { nx = "cl" }
 hook_source = '''
-    nmap dt <Plug>(deepl-replace)
-    xmap dt <Plug>(deepl-replace)
+    nmap cl <Plug>(deepl-replace)
+    xmap cl <Plug>(deepl-replace)
 '''
 ```
 

@@ -55,11 +55,19 @@ fu deepl_operator#replace_opfunc(type = '') abort
 		redraw
 	endtry
 
-	let lines = split(output, '\n')
-	try
-		call nvim_buf_set_text(0, line1 - 1, col1 - 1, line2 - 1, col("']"), lines)
-	catch
-		" If the selected text is up to a newline character
-		call nvim_buf_set_text(0, line1 - 1, col1 - 1, line2 - 1, col("']") - 1, lines)
-	endtry
+	" Put output
+	let old_vw = winsaveview()
+	let old_ve = &ve
+	set ve=onemore
+	let old_reg = @"
+	if a:type=='line'
+		noau norm! '[V']d
+	else
+		noau norm! `[v`]d
+	endif
+	let @" = output
+	noau norm! P
+	let &ve = old_ve
+	call winrestview(old_vw)
+	let @" = old_reg
 endfu
