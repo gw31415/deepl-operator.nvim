@@ -12,9 +12,9 @@ fu deepl_operator#replace_opfunc(type = '') abort
 	" Get input
 	let old_reg = @"
 	if a:type=='line'
-		noau norm! '[V']y
+		noau sil norm! '[V']y
 	else
-		noau norm! `[v`]y
+		noau sil norm! `[v`]y
 	endif
 	let input = @"
 	let @" = old_reg
@@ -44,7 +44,6 @@ fu deepl_operator#replace_opfunc(type = '') abort
 	try
 		echo "Translating..."
 		let output = deepl#translate(input, g:deepl_target_lang)
-		echo ""
 	catch
 		echoerr v:exception
 	finally
@@ -61,13 +60,15 @@ fu deepl_operator#replace_opfunc(type = '') abort
 	set ve=onemore
 	let old_reg = @"
 	if a:type=='line'
-		noau norm! '[V']d
+		noau sil norm! '[V']d
 	else
-		noau norm! `[v`]d
+		noau sil norm! `[v`]d
 	endif
 	let @" = output
-	noau norm! P
+	noau sil norm! P
 	let &ve = old_ve
 	call winrestview(old_vw)
 	let @" = old_reg
+
+	echo "Translated into " .. g:deepl_target_lang
 endfu
