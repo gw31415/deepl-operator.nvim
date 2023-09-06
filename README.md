@@ -2,6 +2,10 @@
 
 Mapping that enables to translate with `<Plug>(deepl-replace)`!
 
+
+https://github.com/gw31415/deepl-operator.vim/assets/24710985/be8c9367-ad87-4e68-b934-1f922744302d
+
+
 - Dot-repeatable
 - pure-VimScript
 
@@ -26,6 +30,7 @@ on_map = { nx = "cl" }
 hook_source = '''
     nmap cl <Plug>(deepl-replace)
     xmap cl <Plug>(deepl-replace)
+    nmap cll <Plug>(deepl-replace)_
 '''
 ```
 
