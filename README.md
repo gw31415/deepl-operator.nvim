@@ -2,9 +2,13 @@
 
 Mapping that enables to translate with `<Plug>(deepl-replace)`!
 
+- Dot-repeatable
+- pure-VimScript
+
 ## Dependencies
 
 - [gw31415/deepl.vim](https://github.com/gw31415/deepl.vim)
+  - cURL ( in `deepl.vim` )
 
 ## Example
 
