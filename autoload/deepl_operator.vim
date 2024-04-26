@@ -24,6 +24,9 @@ fu deepl_operator#replace_opfunc(type = '') abort
 	let pos = []
 	let [ line1, col1 ] = [ line("'["), col("'[")  ]
 	let [ line2, col2 ] = [ line("']"), col("']")  ]
+	if a:type == 'line'
+		let col2 = len(getline(line2))
+	endif
 	for line in range(line1, min([line2, line('w$')]))
 		if line != line1 && line != line2
 			call add(pos, matchaddpos(s:hlgroup, [ line ]))
@@ -32,7 +35,7 @@ fu deepl_operator#replace_opfunc(type = '') abort
 			let start_idx = line == line1 ? col1 : 1
 			let end_idx = line == line2 ? col2 : len(str)
 			for i in range(start_idx, end_idx)
-				call add(pos, matchaddpos(s:hlgroup, [[line, byteidx(str, i)]]))
+				call add(pos, matchaddpos(s:hlgroup, [[line, i]]))
 			endfor
 		endif
 	endfor
